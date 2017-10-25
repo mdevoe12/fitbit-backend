@@ -16,7 +16,16 @@
 /node_modules
 /yarn-error.log
 
-.byebug_history
+/.byebug_history
+/coverage/*
+/coverage/*.*
+/coverage/.last_run.json
+/coverage/.DS_Store
+/coverage/.resultset.json
+/coverage/.resultset.json.lock
+/coverage/index.html
+
+/cassettes/*
 
 # Ignore application configuration
 /config/application.yml
