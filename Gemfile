@@ -52,7 +52,6 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'rspec-rails'
-  gem 'factory_bot_rails'
 end
 
 group :development do
