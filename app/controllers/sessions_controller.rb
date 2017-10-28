@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
     code = params['code']
     FitbitTokenService.get_token(code)
     @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
+    
   end
-  
+
 end
