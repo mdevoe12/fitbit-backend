@@ -5,27 +5,40 @@ class SessionsController < ApplicationController
     # binding.pry
     code = params['code']
 
-    require 'net/http'
-require 'uri'
+    conn = Faraday.new("https://api.fitbit.com/oauth2/token") do |faraday|
+      faraday.headers["Authorization"] = "Basic MjJDS0ROOjg2YTU4YzRmNDFmY2UxNTkzMTE2MmY5MmM1MzZkOTJk"
+      faraday.params["clientID"] = "#{ENV["FITBIT_CLIENT_ID"]}"
+      faraday.params["grant_type"] = "authorization_code"
+      faraday.params["code"] = code
+      faraday.params["redirect_uri"] = "http://localhost:3000/auth/fitbit/callback"
+      faraday.adapter Faraday.default_adapter
+    end
 
-uri = URI.parse("https://api.fitbit.com/oauth2/token")
-request = Net::HTTP::Post.new(uri)
-request.content_type = "application/x-www-form-urlencoded"
-request["Authorization"] = "Basic MjJDS0ROOjg2YTU4YzRmNDFmY2UxNTkzMTE2MmY5MmM1MzZkOTJk"
-request.set_form_data(
-  "clientId" => "22CKDN",
-  "grant_type" => "authorization_code",
-  "redirect_uri" => "http://localhost:3000/auth/fitbit/callback",
-  "code" => "4e73ec45202338a2ade131716be43053988242d0",
-)
+    conn.post
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+    binding.pry
 
-response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-  http.request(request)
-end
+#     require 'net/http'
+# require 'uri'
+#
+# uri = URI.parse("https://api.fitbit.com/oauth2/token")
+# request = Net::HTTP::Post.new(uri)
+# request.content_type = "application/x-www-form-urlencoded"
+# request["Authorization"] = "Basic MjJDS0ROOjg2YTU4YzRmNDFmY2UxNTkzMTE2MmY5MmM1MzZkOTJk"
+# request.set_form_data(
+#   "clientId" => "22CKDN",
+#   "grant_type" => "authorization_code",
+#   "redirect_uri" => "http://localhost:3000/auth/fitbit/callback",
+#   "code" => "4e73ec45202338a2ade131716be43053988242d0",
+# )
+#
+# req_options = {
+#   use_ssl: uri.scheme == "https",
+# }
+#
+# response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+#   http.request(request)
+# end
   end
 
   def make_request
