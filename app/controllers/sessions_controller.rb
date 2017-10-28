@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
 
     conn.post
 
+    @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
     binding.pry
 
 #     require 'net/http'
