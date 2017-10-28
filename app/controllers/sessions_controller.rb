@@ -3,18 +3,7 @@ class SessionsController < ApplicationController
   def create
     redirect_to root_path
     code = params['code']
-
-    conn = Faraday.new("https://api.fitbit.com/oauth2/token") do |faraday|
-      faraday.headers["Authorization"] = "Basic MjJDS0ROOjg2YTU4YzRmNDFmY2UxNTkzMTE2MmY5MmM1MzZkOTJk"
-      faraday.params["clientID"] = "#{ENV["FITBIT_CLIENT_ID"]}"
-      faraday.params["grant_type"] = "authorization_code"
-      faraday.params["code"] = code
-      faraday.params["redirect_uri"] = "http://localhost:3000/auth/fitbit/callback"
-      faraday.adapter Faraday.default_adapter
-    end
-
-    conn.post
-
+    FitbitTokenService.get_token(code)
     @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
     binding.pry
   end
