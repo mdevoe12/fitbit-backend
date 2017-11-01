@@ -11,6 +11,7 @@ end
 # gem 'omniauth-fitbit'
 #
 # gem 'fitgem_oauth2'
+gem 'rack-cors'
 gem 'omniauth-fitbit'
 gem 'fitbit_api'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

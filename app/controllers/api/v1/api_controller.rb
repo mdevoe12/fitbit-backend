@@ -1,12 +1,4 @@
-class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
-  helper_method :current_user
-
-  # def current_user
-  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  # end
-
+class Api::V1::ApiController < ApplicationController
   before_action :require_login!
   helper_method :person_signed_in?, :current_user
 
@@ -30,4 +22,5 @@ class ApplicationController < ActionController::Base
       User.find_by(auth_token: token)
     end
   end
+
 end
