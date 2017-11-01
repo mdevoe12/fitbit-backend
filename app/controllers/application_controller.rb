@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_token
-    authenticate_with_http_token do |token, options|
-      User.find_by(auth_token: token)
-    end
+    # authenticate_with_http_token do |token, options|
+      User.find_by(auth_token: request.env["HTTP_AUTH_TOKEN"])
+    # end
   end
 end

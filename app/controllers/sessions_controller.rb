@@ -12,9 +12,6 @@ class SessionsController < ApplicationController
     # FitbitApiService.get_sleep_info(@user)
   end
 
-  def destroy
-    current_user.invalidate_auth_token
-    head :ok
-  end
+
 
 end
