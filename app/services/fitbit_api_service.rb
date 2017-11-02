@@ -43,7 +43,7 @@ class FitbitApiService
     response = @conn.get("/1/user/3G2M4H/activities/heart/date/today/30d.json")
     heart_info = JSON.parse(response.body)["activities-heart"]
     heart_info.each do |raw_info|
-      user.heart.create(date: raw_info["dateTime"],
+      user.hearts.create(date: raw_info["dateTime"],
                       resting_heart_rate: raw_info["value"]["restingHeartRate"])
     end
     binding.pry

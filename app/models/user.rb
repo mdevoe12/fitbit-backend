@@ -2,6 +2,7 @@ class User < ApplicationRecord
 
   has_many :sleeps
   has_many :activities
+  has_many :hearts
 
   def self.find_or_create_from_auth(auth)
     user = User.find_or_create_by(provider: auth['provider'], uid: auth['uid'])
