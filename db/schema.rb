@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031161143) do
+ActiveRecord::Schema.define(version: 20171102193652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sleeps", force: :cascade do |t|
+    t.date "date_of_wakeup"
+    t.integer "deep_minutes"
+    t.integer "light_minutes"
+    t.integer "rem_minutes"
+    t.integer "wake_minutes"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sleeps_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider"
@@ -31,4 +43,5 @@ ActiveRecord::Schema.define(version: 20171031161143) do
     t.index ["auth_token"], name: "index_users_on_auth_token"
   end
 
+  add_foreign_key "sleeps", "users"
 end

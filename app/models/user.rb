@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  has_many :sleeps
+
   def self.find_or_create_from_auth(auth)
     user = User.find_or_create_by(provider: auth['provider'], uid: auth['uid'])
 
