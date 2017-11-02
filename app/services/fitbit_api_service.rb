@@ -12,7 +12,8 @@ class FitbitApiService
   end
 
   def self.get_sleep_info(user)
-    new(user).get_sleep_info(user)
+    # new(user).get_sleep_info(user)
+    new(user).get_heart_info(user)
   end
 
   def get_sleep_info(user)
@@ -27,5 +28,26 @@ class FitbitApiService
                            wake_minutes: sleep_nest[:wake][:minutes])
     end
   end
+
+  def get_activity_info(user)
+    response = @conn.get("/1/user/3G2M4H/activities/activityCalories/date/today/30d.json")
+    activity_info = JSON.parse(response.body)["activities-activityCalories"]
+    activity_info.each do |raw_info|
+      user.activities.create(date: raw_info["dateTime"],
+                            active_calories_out: raw_info["value"])
+    end
+
+  end
+
+  def get_heart_info(user)
+    response = @conn.get("/1/user/3G2M4H/activities/heart/date/today/30d.json")
+    heart_info = JSON.parse(response.body)["activities-heart"]
+    heart_info.each do |raw_info|
+      user.heart.create(date: raw_info["dateTime"],
+                      resting_heart_rate: raw_info["value"]["restingHeartRate"])
+    end
+    binding.pry
+  end
+
 
 end
