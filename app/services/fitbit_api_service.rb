@@ -13,7 +13,7 @@ class FitbitApiService
 
   def self.get_sleep_info(user)
     # new(user).get_sleep_info(user)
-    new(user).get_heart_info(user)
+    new(user).get_body_info(user)
   end
 
   def get_sleep_info(user)
@@ -46,7 +46,18 @@ class FitbitApiService
       user.hearts.create(date: raw_info["dateTime"],
                       resting_heart_rate: raw_info["value"]["restingHeartRate"])
     end
-    binding.pry
+  end
+
+  def get_body_info(user)
+    response = @conn.get("/1/user/3G2M4H/body/log/weight/date/2017-11-02/30d.json")
+    body_info = JSON.parse(response.body)["weight"]
+    body_info.each do |raw_info|
+      user.bodies.create(date: raw_info["date"],
+                         body_fat: raw_info["fat"],
+                         bmi: raw_info["bmi"],
+                         weight: raw_info["weight"])
+    end
+
   end
 
 

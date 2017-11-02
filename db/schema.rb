@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102205517) do
+ActiveRecord::Schema.define(version: 20171102211826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20171102205517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "bodies", force: :cascade do |t|
+    t.date "date"
+    t.float "body_fat"
+    t.float "bmi"
+    t.float "weight"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bodies_on_user_id"
   end
 
   create_table "hearts", force: :cascade do |t|
@@ -62,6 +73,7 @@ ActiveRecord::Schema.define(version: 20171102205517) do
   end
 
   add_foreign_key "activities", "users"
+  add_foreign_key "bodies", "users"
   add_foreign_key "hearts", "users"
   add_foreign_key "sleeps", "users"
 end
