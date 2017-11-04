@@ -10,20 +10,18 @@ class User < ApplicationRecord
       user = User.find_by(provider: auth['provider'], uid: auth['uid'])
     else
       user = User.new
+      user_info  = auth['extra']['raw_info']['user']
+      user_creds = auth['credentials']
       user.provider      = auth['provider']
       user.uid           = auth['uid']
-      user.first_name    = auth['extra']['raw_info']['user']['firstName']
-      user.last_name     = auth['extra']['raw_info']['user']['lastName']
-      user.gender        = auth['extra']['raw_info']['user']['gender']
-      user.age           = auth['extra']['raw_info']['user']['age']
-      user.height        = auth['extra']['raw_info']['user']['height']
-      user.height        = auth['extra']['raw_info']['user']['height']
-      user.height        = auth['extra']['raw_info']['user']['height']
-      user.token         = auth['credentials']['token']
-      user.refresh_token = auth['credentials']['refresh_token']
+      user.first_name    = user_info['firstName']
+      user.last_name     = user_info['lastName']
+      user.gender        = user_info['gender']
+      user.age           = user_info['age']
+      user.height        = user_info['height']
+      user.token         = user_creds['token']
+      user.refresh_token = user_creds['refresh_token']
       user.save
-      binding.pry
-      
     end
     user
   end
