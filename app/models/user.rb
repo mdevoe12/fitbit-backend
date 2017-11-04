@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   def self.find_or_create_from_auth(auth)
     if User.exists?(:uid => auth['uid'])
-      return User.find_by(provider: auth['provider'], uid: auth['uid'])
+      return User.find_by(uid: auth['uid'])
     end
     create_new_user(auth)
   end
