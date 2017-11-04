@@ -22,6 +22,8 @@ class User < ApplicationRecord
       user.token         = auth['credentials']['token']
       user.refresh_token = auth['credentials']['refresh_token']
       user.save
+      binding.pry
+      
     end
     user
   end
