@@ -26,8 +26,8 @@ class User < ApplicationRecord
 
   def self.create_new_user(auth)
     user = User.new
-    user_info  = auth['extra']['raw_info']['user']
-    user_creds = auth['credentials']
+    user_info          = auth['extra']['raw_info']['user']
+    user_creds         = auth['credentials']
     user.provider      = auth['provider']
     user.uid           = auth['uid']
     user.first_name    = user_info['firstName']
@@ -38,6 +38,13 @@ class User < ApplicationRecord
     user.token         = user_creds['token']
     user.refresh_token = user_creds['refresh_token']
     user.save
+    thirty_days_ago = "#{Date.today - 30}"
+    current_day     = "#{Date.today}"
+    FitbitApiService.get_sleep_info(user, thirty_days_ago)
+    FitbitApiService.get_activity_info(user)
+    FitbitApiService.get_heart_info(user)
+    FitbitApiService.get_body_info(user, current_day)
+    binding.pry
     user
   end
 
