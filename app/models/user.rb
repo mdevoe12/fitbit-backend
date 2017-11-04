@@ -25,27 +25,26 @@ class User < ApplicationRecord
   private
 
   def self.create_new_user(auth)
-    user = User.new
-    user_info          = auth['extra']['raw_info']['user']
-    user_creds         = auth['credentials']
-    user.provider      = auth['provider']
-    user.uid           = auth['uid']
-    user.first_name    = user_info['firstName']
-    user.last_name     = user_info['lastName']
-    user.gender        = user_info['gender']
-    user.age           = user_info['age']
-    user.height        = user_info['height']
-    user.token         = user_creds['token']
-    user.refresh_token = user_creds['refresh_token']
-    user.save
-    thirty_days_ago = "#{Date.today - 30}"
-    current_day     = "#{Date.today}"
-    FitbitApiService.get_sleep_info(user, thirty_days_ago)
-    FitbitApiService.get_activity_info(user)
-    FitbitApiService.get_heart_info(user)
-    FitbitApiService.get_body_info(user, current_day)
-    binding.pry
+    user_info  = auth['extra']['raw_info']['user']
+    user_creds = auth['credentials']
+    user = User.create!(
+           provider:  auth['provider'],
+                uid:  auth['uid'],
+         first_name:  user_info['firstName'],
+          last_name:  user_info['lastName'],
+             gender:  user_info['gender'],
+                age:  user_info['age'],
+             height:  user_info['height'],
+              token:  user_creds['token'],
+      refresh_token:  user_creds['refresh_token']
+    )
+    import_data(user)
     user
+  end
+
+  def self.import_data(user)
+    fitbit_api_connection = FitbitApiService.new(user)
+    fitbit_api_connection.import_thirty_day_data
   end
 
 end

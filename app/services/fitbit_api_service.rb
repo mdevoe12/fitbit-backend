@@ -11,23 +11,15 @@ class FitbitApiService
     @user = user
   end
 
-  def self.get_sleep_info(user, thirty_days_ago)
-    new(user).get_sleep_info(thirty_days_ago)
+  def import_thirty_day_data
+    thirty_days_ago = "#{Date.today - 30}"
+    current_day     = "#{Date.today}"
+    get_sleep_info(thirty_days_ago)
+    get_activity_info
+    get_heart_info
+    get_body_info(current_day)
   end
 
-  def self.get_activity_info(user)
-    new(user).get_activity_info
-  end
-
-  def self.get_heart_info(user)
-    new(user).get_heart_info
-  end
-
-  def self.get_body_info(user, current_day)
-    new(user).get_body_info(current_day)
-  end
-
-  # private
 
   def get_sleep_info(thirty_days_ago)
     response = @conn.get("/1.2/user/#{@user.uid}/sleep/list.json?afterDate=#{thirty_days_ago}&sort=desc&offset=0&limit=30")
