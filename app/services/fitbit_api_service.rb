@@ -37,11 +37,7 @@ class FitbitApiService
   def get_activity_info
     response = @conn.get("/1/user/#{@user.uid}/activities/activityCalories/date/today/30d.json")
     activity_info = JSON.parse(response.body)["activities-activityCalories"]
-    activity_info.each do |raw_info|
-      @user.activities.create(date: raw_info["dateTime"],
-              active_calories_out: raw_info["value"])
-    end
-
+    Activity.create_activity_entries(activity_info, @user)
   end
 
   def get_heart_info

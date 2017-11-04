@@ -39,6 +39,7 @@ class User < ApplicationRecord
       refresh_token:  user_creds['refresh_token']
     )
     import_data(user)
+    binding.pry
     user
   end
 
