@@ -34,7 +34,7 @@ class FitbitApiService
     activity_info = JSON.parse(response.body)["activities-activityCalories"]
     activity_info.each do |raw_info|
       user.activities.create(date: raw_info["dateTime"],
-                            active_calories_out: raw_info["value"])
+              active_calories_out: raw_info["value"])
     end
 
   end
@@ -44,7 +44,7 @@ class FitbitApiService
     heart_info = JSON.parse(response.body)["activities-heart"]
     heart_info.each do |raw_info|
       user.hearts.create(date: raw_info["dateTime"],
-                      resting_heart_rate: raw_info["value"]["restingHeartRate"])
+           resting_heart_rate: raw_info["value"]["restingHeartRate"])
     end
   end
 
@@ -53,11 +53,10 @@ class FitbitApiService
     body_info = JSON.parse(response.body)["weight"]
     body_info.each do |raw_info|
       user.bodies.create(date: raw_info["date"],
-                         body_fat: raw_info["fat"],
-                         bmi: raw_info["bmi"],
-                         weight: raw_info["weight"])
+                     body_fat: raw_info["fat"],
+                          bmi: raw_info["bmi"],
+                       weight: raw_info["weight"])
     end
-
   end
 
 
