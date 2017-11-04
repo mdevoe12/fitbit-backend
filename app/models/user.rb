@@ -6,20 +6,10 @@ class User < ApplicationRecord
   has_many :bodies
 
   def self.find_or_create_from_auth(auth)
-    user = User.find_or_create_by(provider: auth['provider'], uid: auth['uid'])
-
-    user.first_name    = auth['extra']['raw_info']['user']['firstName']
-    user.last_name     = auth['extra']['raw_info']['user']['lastName']
-    user.gender        = auth['extra']['raw_info']['user']['gender']
-    user.age           = auth['extra']['raw_info']['user']['age']
-    user.height        = auth['extra']['raw_info']['user']['height']
-    user.height        = auth['extra']['raw_info']['user']['height']
-    user.height        = auth['extra']['raw_info']['user']['height']
-    user.token         = auth['credentials']['token']
-    user.refresh_token = auth['credentials']['refresh_token']
-
-    user.save
-    user
+    if User.exists?(:uid => auth['uid'])
+      return User.find_by(uid: auth['uid'])
+    end
+    create_new_user(auth)
   end
 
   def generate_auth_token
@@ -30,6 +20,31 @@ class User < ApplicationRecord
 
   def invalidate_auth_token
     self.update_columns(auth_token: nil)
+  end
+
+  private
+
+  def self.create_new_user(auth)
+    user_info  = auth['extra']['raw_info']['user']
+    user_creds = auth['credentials']
+    user = User.create!(
+           provider:  auth['provider'],
+                uid:  auth['uid'],
+         first_name:  user_info['firstName'],
+          last_name:  user_info['lastName'],
+             gender:  user_info['gender'],
+                age:  user_info['age'],
+             height:  user_info['height'],
+              token:  user_creds['token'],
+      refresh_token:  user_creds['refresh_token']
+    )
+    import_data(user)
+    user
+  end
+
+  def self.import_data(user)
+    fitbit_api_connection = FitbitApiService.new(user)
+    fitbit_api_connection.import_thirty_day_data
   end
 
 end

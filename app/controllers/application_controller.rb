@@ -1,12 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
   helper_method :current_user
-
-  # def current_user
-  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  # end
-
   before_action :require_login!
   helper_method :person_signed_in?, :current_user
 
@@ -26,8 +20,6 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_token
-    # authenticate_with_http_token do |token, options|
-      User.find_by(auth_token: request.env["HTTP_AUTH_TOKEN"])
-    # end
+    User.find_by(auth_token: request.env["HTTP_AUTH_TOKEN"])
   end
 end
