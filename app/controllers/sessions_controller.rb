@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   protect_from_forgery :except => [:create]
 
   def create
+    binding.pry
     code = params['code']
     FitbitTokenService.get_token(code)
     @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
