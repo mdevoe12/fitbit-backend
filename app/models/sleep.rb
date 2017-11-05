@@ -11,5 +11,5 @@ class Sleep < ApplicationRecord
                            wake_minutes: sleep_nest[:wake][:minutes])
     end
   end
-  
+
 end
