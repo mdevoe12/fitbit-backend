@@ -1,3 +1,20 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '/auth/fitbit/callback', to: 'sessions#create'
+
+  get '/auth/fitbit', as: :fitbit_login
+
+  namespace :api do
+    namespace :v1 do
+      get 'keys', to: "keys#index"
+      delete 'logout', to: "sessions#destroy"
+      resources :fitbit_data
+      # get '/auth/fitbit/callback', to: 'sessions#create'
+      # get '/auth/fitbit', as: :fitbit_login
+    end
+  end
+
+
+  root "home#index"
+
 end

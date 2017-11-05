@@ -5,7 +5,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+# gem 'omniauth-fitbit'
+# gem 'fitgem'
+# gem 'dotenv-rails'
+# gem 'omniauth-fitbit'
+#
+# gem 'fitgem_oauth2'
+gem 'rack-cors'
+gem 'omniauth-fitbit'
+gem 'fitbit_api'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use postgresql as the database for Active Record
@@ -45,7 +53,6 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
 end
 
 group :development do
