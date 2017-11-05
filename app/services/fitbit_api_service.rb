@@ -1,5 +1,8 @@
 class FitbitApiService
 
+  attr_reader :conn,
+              :user
+
   def initialize(user)
     @conn = Faraday.new("https://api.fitbit.com") do |faraday|
         faraday.headers["Authorization"] = "Bearer #{user.token}"

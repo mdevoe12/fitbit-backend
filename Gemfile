@@ -46,6 +46,7 @@ group :development, :test do
   gem 'faraday'
   gem 'database_cleaner'
   gem 'rspec-rails'
+  gem 'rspec-mocks'
   gem 'simplecov'
 end
 
