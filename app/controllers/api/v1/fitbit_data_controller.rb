@@ -1,7 +1,6 @@
 class Api::V1::FitbitDataController < ApplicationController
 
   def index
-    binding.pry
     data = []
     30.times do |i|
       date = "#{Date.today - i}"
