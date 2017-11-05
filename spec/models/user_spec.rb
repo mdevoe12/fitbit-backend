@@ -52,4 +52,27 @@ RSpec.describe User, type: :model do
     expect(user.token).to eq("123")
     expect(user.refresh_token).to eq("432")
   end
+
+  it "generates random token" do
+    user = User.create(first_name: "test")
+
+    expect(user.auth_token).to eq(nil)
+
+    user.generate_auth_token
+
+    expect(user.auth_token).to be_instance_of(String)
+    expect(user.auth_token.length).to eq(32)
+  end
+
+  it "invalidates auth token" do
+    user = User.create(auth_token: "987654321")
+
+    expect(user.auth_token).to eq("987654321")
+
+    user.invalidate_auth_token
+
+    expect(user.auth_token).to eq(nil)
+    
+  end
+
 end
