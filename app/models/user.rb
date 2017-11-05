@@ -9,7 +9,7 @@ class User < ApplicationRecord
     if User.exists?(:uid => auth['uid'])
       return User.find_by(uid: auth['uid'])
     end
-    create_new_user(auth)
+    start_user_creation(auth)
   end
 
   def generate_auth_token
@@ -24,10 +24,17 @@ class User < ApplicationRecord
 
   private
 
+
+  def self.start_user_creation(auth)
+    create_new_user(auth)
+    import_data(@user)
+    @user
+  end
+
   def self.create_new_user(auth)
     user_info  = auth['extra']['raw_info']['user']
     user_creds = auth['credentials']
-    user = User.create!(
+    @user = User.create!(
            provider:  auth['provider'],
                 uid:  auth['uid'],
          first_name:  user_info['firstName'],
@@ -38,8 +45,6 @@ class User < ApplicationRecord
               token:  user_creds['token'],
       refresh_token:  user_creds['refresh_token']
     )
-    import_data(user)
-    user
   end
 
   def self.import_data(user)

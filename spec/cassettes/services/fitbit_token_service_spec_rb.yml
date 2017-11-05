@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.fitbit.com/oauth2/token?clientID=22CKDN&code=321&grant_type=authorization_code&redirect_uri=http://localhost:3000/auth/fitbit/callback
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Basic MjJDS0ROOjg2YTU4YzRmNDFmY2UxNTkzMTE2MmY5MmM1MzZkOTJk
+      User-Agent:
+      - Faraday v0.12.2
+      Content-Length:
+      - '0'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 05 Nov 2017 15:25:53 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin,Accept-Encoding
+      Cache-Control:
+      - no-cache, private
+      Content-Language:
+      - en-US
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3b90d40ba8425011-DEN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"errors":[{"errorType":"invalid_grant","message":"Authorization code
+        invalid: 321 Visit https://dev.fitbit.com/docs/oauth2 for more information
+        on the Fitbit Web API authorization process."}],"success":false}'
+    http_version: 
+  recorded_at: Sun, 05 Nov 2017 15:25:53 GMT
+recorded_with: VCR 3.0.3

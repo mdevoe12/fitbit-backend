@@ -5,12 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# gem 'omniauth-fitbit'
-# gem 'fitgem'
-# gem 'dotenv-rails'
-# gem 'omniauth-fitbit'
-#
-# gem 'fitgem_oauth2'
+
 gem 'rack-cors'
 gem 'omniauth-fitbit'
 gem 'fitbit_api'
@@ -49,10 +44,10 @@ group :development, :test do
   gem 'awesome_print'
   gem 'figaro'
   gem 'faraday'
-  gem 'capybara'
-  gem 'launchy'
   gem 'database_cleaner'
   gem 'rspec-rails'
+  gem 'rspec-mocks'
+  gem 'simplecov'
 end
 
 group :development do

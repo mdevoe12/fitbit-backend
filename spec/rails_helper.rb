@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+# require 'rspec-mocks'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
@@ -7,7 +8,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'vcr'
-require 'capybara/rails'
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/cassettes"
@@ -70,4 +70,21 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+def stub_omniauth
+  OmniAuth.config.test_mode = true
+
+  OmniAuth.config.mock_auth[:fitbit] = OmniAuth::AuthHash.new({
+    provider: "fitbit",
+    uid: "12345678",
+    info: {
+      email: "matthew.devoe@gmail.com",
+      name: "Matt",
+      nickname: "Matt",
+    },
+    credentials: {
+      token: "12345abcdefghijklmnop"
+    }
+    })
 end
