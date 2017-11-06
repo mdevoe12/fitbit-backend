@@ -11,6 +11,4 @@ class SessionsController < ApplicationController
     redirect_to "http://localhost:8080?token=#{@user.auth_token}"
   end
 
-
-
 end

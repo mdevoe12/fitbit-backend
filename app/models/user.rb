@@ -24,7 +24,6 @@ class User < ApplicationRecord
 
   private
 
-
   def self.start_user_creation(auth)
     create_new_user(auth)
     import_data(@user)
