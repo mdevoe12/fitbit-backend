@@ -16,11 +16,12 @@ RSpec.describe FitbitApiService do
     end
 
     it "returns sleep_url" do
-      user = User.create(token: "123")
-      service = FitbitApiService.new(user)
+      @user = User.create(token: "123", uid: "222")
+      service = FitbitApiService.new(@user)
+      thirty_days_ago = Date.today - 30
 
       result = service.sleep_url
-      expected = "/1.2/user//sleep/list.json?afterDate=2017-10-06&sort=desc&offset=0&limit=30"
+      expected = "/1.2/user/#{@user.uid}/sleep/list.json?afterDate=#{thirty_days_ago}&sort=desc&offset=0&limit=30"
 
       expect(result).to eq(expected)
     end

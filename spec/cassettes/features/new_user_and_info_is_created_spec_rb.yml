@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.fitbit.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: client_id=22CKDN&client_secret=86a58c4f41fce15931162f92c536d92d&code=59aebe8b49835ed11716056fd69ffc423e65cc8f&grant_type=authorization_code&redirect_uri=http%3A%2F%2Fwww.example.com%2Fauth%2Ffitbit%2Fcallback
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Authorization:
+      - Basic MjJDS0ROOjg2YTU4YzRmNDFmY2UxNTkzMTE2MmY5MmM1MzZkOTJk
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Mon, 06 Nov 2017 06:36:19 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Origin,Accept-Encoding
+      Cache-Control:
+      - no-cache, private
+      Content-Language:
+      - en-US
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3b9609ab39684fdb-DEN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"errors":[{"errorType":"invalid_grant","message":"Authorization code
+        invalid: 59aebe8b49835ed11716056fd69ffc423e65cc8f Visit https://dev.fitbit.com/docs/oauth2
+        for more information on the Fitbit Web API authorization process."}],"success":false}'
+    http_version: 
+  recorded_at: Mon, 06 Nov 2017 06:36:19 GMT
+recorded_with: VCR 3.0.3
