@@ -1,7 +1,7 @@
 class Graph
 
   def self.create_graph_data(user)
-    [pull_sleep_data(user), pull_weight_heart_data(user)]
+    [pull_sleep_data(user), pull_activity_heart_data(user)]
   end
 
   def self.pull_sleep_data(user)
@@ -20,17 +20,17 @@ class Graph
     data_sleep.reverse
   end
 
-  def self.pull_weight_heart_data(user)
-    data_weight_heart = []
+  def self.pull_activity_heart_data(user)
+    data_activity_heart = []
     29.times do |i|
       date = "#{Date.today - (i + 1)}"
-      data_weight_heart << {
+      data_activity_heart << {
        date: date,
        heart_rate: user.hearts.find_by(date: date).resting_heart_rate,
-       caloriesOut: user.activities.find_by(date: date).active_calories_out
+       caloriesOut_in_thousands: user.activities.find_by(date: date).active_calories_out / 10
        }
     end
-    data_weight_heart.reverse
+    data_activity_heart.reverse
   end
 
 end
