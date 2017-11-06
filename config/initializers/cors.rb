@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:8080'
+    origins 'https://mdevoe12.github.io/fitbit-front-end-react/'
     resource '*',
       headers: :any,
       methods: %i(get post put patch delete options head)
