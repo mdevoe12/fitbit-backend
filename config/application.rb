@@ -16,6 +16,13 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+config.middleware.use Rack::Cors do
+  allow do
+    origins 'https://mdevoe12.github.io/fitbit-front-end-react/'
+    resource '/*', :headers => :any, :methods => :get
+  end
+end
+
 module FitbitBackend
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
