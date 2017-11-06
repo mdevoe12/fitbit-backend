@@ -25,7 +25,7 @@ module FitbitBackend
 
     config.middleware.use Rack::Cors do
       allow do
-        origins 'https://mdevoe12.github.io/fitbit-front-end-react/'
+        origins '/*'
         resource '*',
           :headers => :any,
           :methods => [:get, :put, :patch, :options, :delete],
