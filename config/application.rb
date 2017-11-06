@@ -19,7 +19,10 @@ Bundler.require(*Rails.groups)
 config.middleware.use Rack::Cors do
   allow do
     origins 'https://mdevoe12.github.io/fitbit-front-end-react/'
-    resource '/*', :headers => :any, :methods => :get
+    resource '*',
+      :headers => :any,
+      :methods => [:get, :put, :patch, :options, :delete],
+      :max_age => 15
   end
 end
 
