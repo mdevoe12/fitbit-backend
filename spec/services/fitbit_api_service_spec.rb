@@ -55,5 +55,14 @@ RSpec.describe FitbitApiService do
 
       expect(result).to eq(expected)
     end
+
+    it "returns conn.get url" do
+      @user = User.create(token: "123", uid: '311')
+      service = FitbitApiService.new(@user)
+
+      result = service.get("test")
+
+      expect(result.env['method']).to eq(:get)
+    end
   end
 end
