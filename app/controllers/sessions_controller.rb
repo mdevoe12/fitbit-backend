@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     FitbitTokenService.get_token(code)
     @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
     @user.generate_auth_token
-    redirect_to "http://localhost:8080?token=#{@user.auth_token}"
+    redirect_to "https://mdevoe12.github.io/fitbit-front-end-react/?token=#{@user.auth_token}"
   end
 
 end
