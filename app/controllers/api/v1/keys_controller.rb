@@ -1,6 +1,7 @@
 class Api::V1::KeysController < ApplicationController
 
   skip_before_action :require_login!, only: [:index]
+  skip_before_filter :verify_authenticity_token, :only => [:index]
 
   def index
     if authenticate_url(request)
