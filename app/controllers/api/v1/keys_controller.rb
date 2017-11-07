@@ -16,7 +16,7 @@ class Api::V1::KeysController < ApplicationController
   private
 
   def authenticate_url(request)
-    return true if request.env["HTTP_URL"] == "https://mdevoe12.github.io/fitbit-front-end-react/"
+    return true if request.env["HTTP_URL"] == "http://localhost:8080/"
   end
 
 end
